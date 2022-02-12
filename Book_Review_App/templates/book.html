@@ -1,0 +1,88 @@
+<html>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box}
+      
+        button {
+          padding: 14px 20px;
+          margin: 8px 0;
+          cursor: pointer;
+          opacity: 0.8;
+          width: 250px
+        }
+      </style>
+    <body>
+        <div style = "width: 100%;display: inline-block;"> 
+            <span>
+                <b style = "font-size: 40px;">Book ReviewApp</b>
+            </span>
+            <span id="btn-group" style = "float: right;">
+                <a href="{{ url_for('logout_user') }}"> 
+                    <b style = "font-size: 30px;">Logout</b>
+                </a>
+            </span>
+        </div>
+        <hr>
+        <div>
+            <a 
+                style = "font-size: 25px;cursor: pointer;text-decoration: none;"
+                href = "{{ url_for('index') }}"
+            >
+                &#8592;&nbsp;Back to search page
+            </a>
+        </div>
+        <div>
+            <div>
+                <p><b>Book Title:</b> {{book.title}}</p>
+                <p><b>Book Author:</b> {{book.author}}</p>
+                <p><b>ISBN Number:</b> {{book.isbn}}</p>
+                <p><b>Total Number of Reviews:</b> {{book.total_ratings}}</p>
+                <p><b>Average Rating:</b> {{book.average_rating}}</p>
+            </div>
+            <hr>
+            <h4>Add Review</h4>
+            <div>
+                <form action="{{url_for('submit_review',book_id=book.id)}}" method = "post">
+                    <label for="review"><b>Review:</b></label>
+                    <br/>
+                    <textarea id="review" name="review" rows="6" cols="100" style="margin:20px;" required></textarea>
+                    <br/>
+                    <label for="rating"><b>Select Rating:</b></label>
+                    <br/>
+                    <select name="rating" id="rating" style = "width: 100px;font-size: 20px;margin:20px;">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                    <br/>
+                    <button type="submit">
+                        <b>Submit</b>
+                    </button>
+                </form>
+                {% if message %}
+                    <h4 style = "color:green">
+                        {{ message }}
+                    </h4>
+                {% endif %}
+                {% if error_message %}
+                    <h4 style = "color:red">
+                        {{ error_message }}
+                    </h4>
+                {% endif %}
+            </div>
+            <br/>
+            <h4>Reviews</h4>
+            <hr>
+            {% for review in book.reviews %}
+                <div>
+                    <p><b>Rating:</b> {{review.rating}}</p>
+                    <p><b>Review:</b> {{review.review}}</p>
+                    <p><b>UserName:</b> {{review.username}}</p>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    </body>
+</html>

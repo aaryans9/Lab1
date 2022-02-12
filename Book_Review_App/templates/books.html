@@ -1,0 +1,64 @@
+<html>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box}
+      
+        input[type=text], input[type=password] {
+          width: 80%;
+          padding: 15px;
+          margin-top: 50px;
+          display: inline-block;
+        }
+      
+        button {
+          padding: 14px 20px;
+          margin: 8px 0;
+          cursor: pointer;
+          opacity: 0.8;
+          width: 20%
+        }
+      </style>
+    <body>
+        <div style = "width: 100%;display: inline-block;"> 
+            <span>
+                <b style = "font-size: 40px;">Book ReviewApp</b>
+            </span>
+            <span id="btn-group" style = "float: right;">
+                <a href="{{ url_for('logout_user') }}"> 
+                    <b style = "font-size: 30px;">Logout</b>
+                </a>
+            </span>
+        </div>
+        <hr>
+        <div>
+            <a 
+                style = "font-size: 25px;cursor: pointer;text-decoration: none;"
+                href = "{{ url_for('index') }}"
+            >
+                &#8592;&nbsp;Back to search page
+            </a>
+        </div>
+        <div>
+            <h2 style = "text-align: center;">Total number of books found: {{books|length}}</h2>
+        </div>
+        <div>
+            {% for book in books %}
+                <div style = "display: inline-block">
+                    <span>
+                        {{loop.index}}.
+                    </span>
+                    <span>
+                        <p><b>Book ID:</b> {{book.id}}</p>
+                        <p><b>Book Title:</b> {{book.title}}</p>
+                        <p><b>Book Author:</b> {{book.author}}</p>
+                        <p><b>ISBN Number:</b> {{book.isbn}}</p>
+                        <a href="{{url_for('render_book_info_page',book_id=book.id)}}">
+                            Click for More Info
+                        </a>
+                    </span>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    </body>
+</html>

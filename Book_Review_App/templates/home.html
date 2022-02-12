@@ -1,0 +1,45 @@
+<html>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box}
+      
+        input[type=text], input[type=password] {
+          width: 80%;
+          padding: 15px;
+          margin-top: 50px;
+          display: inline-block;
+        }
+      
+        button {
+          padding: 14px 20px;
+          margin: 8px 0;
+          cursor: pointer;
+          opacity: 0.8;
+          width: 20%
+        }
+      </style>
+    <body>
+        <div style = "width: 100%;display: inline-block;"> 
+            <span>
+                <b style = "font-size: 40px;">Book ReviewApp</b>
+            </span>
+            <span id="btn-group" style = "float: right;">
+                <a href="{{ url_for('logout_user') }}"> 
+                    <b style = "font-size: 30px;">Logout</b>
+                </a>
+            </span>
+        </div>
+        <hr>
+        <form action="{{ url_for('search_books')}}" method="post" style="text-align: center;">
+            <input 
+                type="text" 
+                placeholder="Enter book name or isbn number or author name to search" 
+                name="query" 
+                required
+            >
+            <button>
+                Search
+            </button>
+        </form>
+    </body>
+</html>
